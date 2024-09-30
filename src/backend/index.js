@@ -4,7 +4,7 @@ import cors from 'cors'; // Importando o middleware CORS
 import dotenv from 'dotenv';
 
 dotenv.config();
-const dbUrl = process.env.DATABASE_URL;
+const dbUrl = process.env.DATABASE_URL || 3001;
 
 
 
@@ -15,7 +15,7 @@ mongoose.connect(dbUrl)
 
 const app = express();
 app.use(express.json());
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3001;
 app.use(cors());
 
 // Configurando modelo de dados
