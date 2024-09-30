@@ -23,14 +23,6 @@ function Add() {
           <Modal.Title>Adicionar Contato</Modal.Title>
         </Modal.Header>
         <Modal.Body><AddContact/></Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary"onClick={handleClose}>
-            Fechar
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Salvar Alterações
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

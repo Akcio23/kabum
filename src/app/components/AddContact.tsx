@@ -1,43 +1,53 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import blogFetch from '@/backend/api/config';
 
-
-interface Forms{
+interface Forms {
   departament: string;
-  name: string;
- 
+  email: string;
 }
-
 
 const AddContact = () => {
   const [departament, setDepartament] = useState<string>(''); // Inicializando com string vazia
-  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('');
 
-  const createContact = async(e : React.FormEvent) => {
-    e.preventDefault(); // Evitando que a pagina se recarregue no envio dos dados
+  const createContact = async () => {
+
     
-    const data: Forms = { departament, name };
+    const data: Forms = { email, departament };
 
-  
-    
-  }
-
+    try {
+      await blogFetch.post('/contato', data); // Enviando os dados diretamente
+      console.log('Contato adicionado com sucesso!'); // Log para confirmação
+    } catch (error) {
+      console.error('Erro ao adicionar contato:', error); // Tratamento de erro
+    }
+  };
 
   return (
     <div className='flex flex-col'>
-   
+      <form onSubmit={createContact} className='flex flex-col'> {/* Aqui removi a arrow function */}
+        <label>Responsabilidade:</label>
+        <input
+          type="text"
+          onChange={(e) => setDepartament(e.target.value)}
+          placeholder='RA'
+          className='p-2 rounded border-2'
+        />
 
-        <form onSubmit={(e) => createContact(e)} className='flex flex-col'>
-            <label>Resposabilidade:</label>
-            <input type="text" value={departament} onChange={(e) => setDepartament(e.target.value)} placeholder='Entrega' className='p-2 rounded border-2'/>
+        <label>Email</label>
+        <input
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder='@example.com'
+          className='p-2 rounded border-2'
+        />
 
-            <label>Nome</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder='Pedro' className='p-2 rounded border-2' />
-
-        </form>
-      
+        <button type='submit' className='p-2 rounded border-2 bg-blue-500 text-white m-3'>
+          Adicionar Contato
+        </button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default AddContact
+export default AddContact;
