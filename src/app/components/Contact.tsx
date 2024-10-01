@@ -1,7 +1,7 @@
 import React from 'react';
 import Delete from './Delete';
 import Edit from './Edit';
-import { Suspense } from "react";
+
 
 interface ContactProps {
   filter: string; 
