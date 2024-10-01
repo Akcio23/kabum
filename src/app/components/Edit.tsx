@@ -16,10 +16,16 @@ function Edit(props: PropsEdit) {
   const handleShow = () => setShow(true);
   const [email, setEmail] = useState<string>('');
 
-  const handleEdit = async () => {
+  const handleEdit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     try {
+      
       await updateContact(props._id, email); // Passa o ID e o novo email
       handleClose(); // Fecha o modal
+      alert('Email alterado com sucesso')
+      setTimeout(() => {
+        window.location.reload(); // Recarrega a página
+      }, 1000)
     } catch (error) {
       console.error("Erro ao atualizar o contato:", error); // Captura erros
     }

@@ -10,14 +10,18 @@ const AddContact = () => {
   const [departament, setDepartament] = useState<string>(''); // Inicializando com string vazia
   const [email, setEmail] = useState<string>('');
 
-  const createContact = async () => {
+  const createContact = async (event: React.FormEvent<HTMLFormElement>) => {
 
-    
+    event.preventDefault()
     const data: Forms = { email, departament };
 
     try {
       await blogFetch.post('/contato', data); // Enviando os dados diretamente
       console.log('Contato adicionado com sucesso!'); // Log para confirmação
+      alert('Contato adicionado com sucesso')
+      setTimeout(() => {
+        window.location.reload(); // Recarrega a página
+      }, 1000)
     } catch (error) {
       console.error('Erro ao adicionar contato:', error); // Tratamento de erro
     }
