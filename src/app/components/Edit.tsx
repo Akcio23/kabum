@@ -1,10 +1,11 @@
-"use client"
+"use client";
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Image from 'next/image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import updateContact from '../../backend/api/put';
+import Sucess from './Sucess'; 
 
 interface PropsEdit {
   _id: string;
@@ -15,17 +16,19 @@ function Edit(props: PropsEdit) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [email, setEmail] = useState<string>('');
+  const [showSuccess, setShowSuccess] = useState(false); // Estado para controlar a exibição do sucesso
 
   const handleEdit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
     try {
-      
       await updateContact(props._id, email); // Passa o ID e o novo email
       handleClose(); // Fecha o modal
-      alert('Email alterado com sucesso')
+      setShowSuccess(true); // Exibe a mensagem de sucesso
+
       setTimeout(() => {
+        setShowSuccess(false); // Oculta a mensagem após 3 segundos
         window.location.reload(); // Recarrega a página
-      }, 1000)
+      }, 3000);
     } catch (error) {
       console.error("Erro ao atualizar o contato:", error); // Captura erros
     }
@@ -72,6 +75,8 @@ function Edit(props: PropsEdit) {
           </div>
         </Modal.Body>
       </Modal>
+
+      {showSuccess && <Sucess message="Email alterado com sucesso!" />} {/* Exibindo o componente Success */}
     </>
   );
 }

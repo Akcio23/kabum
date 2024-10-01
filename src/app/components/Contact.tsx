@@ -1,6 +1,7 @@
 import React from 'react';
 import Delete from './Delete';
 import Edit from './Edit';
+import { Suspense } from "react";
 
 interface ContactProps {
   filter: string; 
@@ -16,6 +17,7 @@ const Contact: React.FC<ContactProps> = ({ filter, contatos = [] }) => {
 
   return (
     <div className='flex flex-col justify-center items-center'>
+      
       {filteredContacts.length === 0 ? (
         <p>Nenhum contato encontrado.</p>
       ) : (
@@ -32,6 +34,7 @@ const Contact: React.FC<ContactProps> = ({ filter, contatos = [] }) => {
           </div>
         ))
       )}
+  
     </div>
   );
 };

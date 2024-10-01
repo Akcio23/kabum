@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import blogFetch from '@/backend/api/config';
+import Success from './Sucess';
 
 interface Forms {
   departament: string;
@@ -7,29 +8,33 @@ interface Forms {
 }
 
 const AddContact = () => {
-  const [departament, setDepartament] = useState<string>(''); // Inicializando com string vazia
+  const [departament, setDepartament] = useState<string>(''); 
   const [email, setEmail] = useState<string>('');
+  const [showSuccess, setShowSuccess] = useState<boolean>(false); 
 
   const createContact = async (event: React.FormEvent<HTMLFormElement>) => {
-
-    event.preventDefault()
+    event.preventDefault();
     const data: Forms = { email, departament };
 
     try {
-      await blogFetch.post('/contato', data); // Enviando os dados diretamente
-      console.log('Contato adicionado com sucesso!'); // Log para confirmação
-      alert('Contato adicionado com sucesso')
+      await blogFetch.post('/contato', data); 
+      console.log('Contato adicionado com sucesso!'); 
+      
+      setShowSuccess(true); // Exibe o componente de sucesso
+
       setTimeout(() => {
+        setShowSuccess(false); // Oculta o componente de sucesso após 3 segundos
         window.location.reload(); // Recarrega a página
-      }, 1000)
+      }, 3000); // Ajuste o tempo conforme necessário
+
     } catch (error) {
-      console.error('Erro ao adicionar contato:', error); // Tratamento de erro
+      console.error('Erro ao adicionar contato:', error); 
     }
   };
 
   return (
     <div className='flex flex-col'>
-      <form onSubmit={createContact} className='flex flex-col'> {/* Aqui removi a arrow function */}
+      <form onSubmit={createContact} className='flex flex-col'>
         <label>Responsabilidade:</label>
         <input
           type="text"
@@ -50,6 +55,8 @@ const AddContact = () => {
           Adicionar Contato
         </button>
       </form>
+
+      {showSuccess && <Success message="Contato adicionado com sucesso!" />} {/* Renderiza o componente de sucesso se showSuccess for true */}
     </div>
   );
 }
