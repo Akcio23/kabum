@@ -30,7 +30,7 @@ const Delete = (props: PropsDelete) => {
 
     return (
         <>
-            <Button onClick={handleShow} style={{ backgroundColor: 'red', color: 'white', border: 'none' }}>
+            <Button onClick={handleShow} style={{ backgroundColor: 'red', color: 'white', border: 'none',}}>
                 <Image
                     src={"/excluir.png"}
                     width={20}

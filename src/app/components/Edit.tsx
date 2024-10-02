@@ -36,7 +36,7 @@ function Edit(props: PropsEdit) {
 
   return (
     <>
-      <Button onClick={handleShow} style={{ backgroundColor: '#FFA500', color: 'white', border: 'none' }}>
+      <Button onClick={handleShow} style={{ backgroundColor: '#FFA500', color: 'white', border: 'none',}}>
         <Image
           src={"/escrever.png"}
           width={20}
